@@ -5,7 +5,21 @@ model users {
     email String @unique
     password String
     role_user role_user[]
+    user_tokens user_tokens[]
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+model user_tokens {
+    id Int @id @default(autoincrement())
+
+    access_token String
+    refresh_token String
+    user_id Int
+
+    users users @relation(fields: [user_id], references: [id])
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
 }
