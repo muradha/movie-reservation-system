@@ -1,0 +1,9 @@
+model roles{
+    id Int @id @default(autoincrement())
+    
+    name String @unique
+    role_user role_user[]
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}

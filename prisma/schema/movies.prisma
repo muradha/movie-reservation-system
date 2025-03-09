@@ -1,0 +1,10 @@
+model movies {
+    id Int @id @default(autoincrement())
+
+    title String
+    description String
+    duration Int
+    
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}

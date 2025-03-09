@@ -1,20 +1,30 @@
 {
-	"name": "movie-reservation-system-nodejs",
-	"version": "1.0.0",
-	"main": "index.js",
-	"dependencies": {
-		"express": "^4.21.2"
-	},
-	"devDependencies": {
-		"prisma": "^6.4.1"
-	},
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "node --watch ./src/app.js"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"description": "",
-	"packageManager": "pnpm@10.5.1+sha512.c424c076bd25c1a5b188c37bb1ca56cc1e136fbf530d98bcb3289982a08fd25527b8c9c4ec113be5e3393c39af04521dd647bcf1d0801eaf8ac6a7b14da313af"
+  "name": "movie-reservation-system-nodejs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@prisma/client": "6.4.1",
+    "express": "^4.21.2",
+    "module-alias": "^2.2.3"
+  },
+  "devDependencies": {
+    "prisma": "^6.4.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch ./src/app.js"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@controllers": "src/controllers",
+    "@repositories": "src/repositories",
+    "@routes": "src/routes",
+	"@services": "src/services",
+	"@validators": "src/validators"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "packageManager": "pnpm@10.5.1+sha512.c424c076bd25c1a5b188c37bb1ca56cc1e136fbf530d98bcb3289982a08fd25527b8c9c4ec113be5e3393c39af04521dd647bcf1d0801eaf8ac6a7b14da313af"
 }
