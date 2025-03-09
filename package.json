@@ -21,7 +21,8 @@
     "#repositories/*": "./src/repositories/*",
     "#services/*": "./src/services/*",
     "#validators/*": "./src/validators/*",
-    "#middlewares/*": "./src/middlewares/*"
+    "#middlewares/*": "./src/middlewares/*",
+	"#pipes/*": "./src/pipes/*"
   },
   "type": "module",
   "keywords": [],
