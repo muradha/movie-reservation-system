@@ -1,7 +1,11 @@
+import HttpError from "../errors/HttpError.js";
 import { sendError } from "../utils/response.js";
 import { Prisma } from "@prisma/client";
 
 const errorHandler = (err, req, res, next) => {
+  if (err instanceof HttpError) {
+    sendError(res, err.message, err.details, err.statusCode);
+  }
 
   // Tangani error dari Prisma berdasarkan referensi: https://www.prisma.io/docs/orm/reference/error-reference
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
