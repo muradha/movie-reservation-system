@@ -1,11 +1,19 @@
 // src/utils/response.js
-const sendSuccess = (res, data = null, message = "", statusCode = 200) => {
-  return res.status(statusCode).json({
+const sendSuccess = (
+  res,
+  data = null,
+  message = "",
+  statusCode = 200,
+  meta = null
+) => {
+  const response = {
     statusCode,
     success: true,
     message,
-    data,
-  });
+  };
+  if (meta) response.meta = meta;
+  if (data) response.data = data;
+  return res.status(statusCode).json(response);
 };
 
 const sendError = (res, message = "Error", err, statusCode = 500) => {

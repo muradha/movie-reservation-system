@@ -5,9 +5,9 @@ const userService = new UserService();
 
 const getUsers = async (req, res, next) => {
   try {
-    const users = await userService.fetchAllUsers();
+    const result = await userService.fetchAllUsers(); 
 
-    sendSuccess(res, users, "User fetched", 200);
+    sendSuccess(res, result.data, "User fetched", 200, result.meta);
   } catch (error) {
     next(error);
   }

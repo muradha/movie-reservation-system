@@ -6,7 +6,7 @@ const userRepository = new UserRepository();
 
 class UserService {
   async fetchAllUsers() {
-    return await userRepository.getAllUsers();
+    return await userRepository.getPaginatedUsers();
   }
 
   async saveUser(data) {
