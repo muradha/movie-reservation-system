@@ -15,6 +15,14 @@ class MovieRepository {
     });
   }
 
+  async getMovieBytitle(title) {
+    return await prisma.movies.findFirst({
+      where: {
+        title
+      }
+    })
+  }
+
   async createMovie(data) {
     return await prisma.movies.create({
       data,
