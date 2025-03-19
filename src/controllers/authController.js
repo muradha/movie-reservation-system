@@ -13,4 +13,15 @@ const login = async (req, res, next) => {
     next(error);
   }
 };
-export { login };
+
+const register = async(req, res,next) => {
+  try {
+    const response = await authService.register(req.body);
+
+    sendSuccess(res, response, "Register successfully", 201);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export { login, register };

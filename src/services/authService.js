@@ -31,18 +31,39 @@ class AuthService {
 
     const isPasswordValid = await argon.verify(user.password, password);
 
-    if(!isPasswordValid){
-        throw new HttpError(400, 'Invalid credentials');
+    if (!isPasswordValid) {
+      throw new HttpError(400, 'Invalid credentials');
     }
 
     const accessToken = this._generateAccessToken(user);
     const refreshToken = this._generateRefreshToken(user);
 
     return {
-      accessToken: accessToken,
-      refreshToken: refreshToken,
+      accessToken,
+      refreshToken,
       user,
     };
+  }
+
+  async register({ email, password, name }) {
+    const isUserExist = await userRepository.getUserByEmail(email);
+
+    if (isUserExist) {
+      throw new HttpError(400, 'User already exists');
+    }
+
+    const hashedPassword = await argon.hash(password);
+
+    const user = await userRepository.createUser({ email, password: hashedPassword, name });
+
+    const accessToken = this._generateAccessToken(user);
+    const refreshToken = this._generateRefreshToken(user);
+
+    return {
+      accessToken,
+      refreshToken,
+      user,
+    }
   }
 }
 
