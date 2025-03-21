@@ -1,0 +1,15 @@
+model watch_history {
+    id Int @id @default(autoincrement())
+
+    review String @db.Text
+    rating Int
+
+    watched_date DateTime
+    movie_id     Int      @unique
+    movie        movies   @relation(fields: [movie_id], references: [id])
+    user_id      Int
+    users        users    @relation(fields: [user_id], references: [id])
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+} 

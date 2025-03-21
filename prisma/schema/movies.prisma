@@ -1,10 +1,39 @@
 model movies {
     id Int @id @default(autoincrement())
 
-    title String
-    description String
-    duration Int
-    
+    title           String
+    description     String
+    duration        Int
+    poster          String
+    movie_status_id Int
+    movie_status    movie_status      @relation(fields: [movie_status_id], references: [id])
+    movie_schedules movie_schedules[]
+    watch_history   watch_history?
+
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
+}
+
+model movie_schedules {
+    id Int @id @default(autoincrement())
+
+    show_date DateTime @db.Date()
+    show_time DateTime @db.Time()
+
+    movie_id     Int
+    movies       movies         @relation(fields: [movie_id], references: [id])
+    theater_id   Int
+    theaters     theaters       @relation(fields: [theater_id], references: [id])
+    reservations reservations[]
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+model movie_status {
+    id Int @id @default(autoincrement())
+
+    name String
+
+    movies movies[]
 }

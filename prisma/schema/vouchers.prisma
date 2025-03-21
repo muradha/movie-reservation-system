@@ -1,0 +1,21 @@
+model vouchers {
+    id Int @id @default(autoincrement())
+
+    code           String
+    description    String         @db.Text()
+    discount_type  discount_type
+    discount_value Float
+    valid_from     DateTime
+    valid_until    DateTime
+    usage_limit    Int
+    is_active      Boolean        @default(true)
+    reservations   reservations[]
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+enum discount_type {
+    PERCENTAGE
+    FIXED
+}

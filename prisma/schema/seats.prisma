@@ -1,0 +1,20 @@
+model seats {
+    id Int @default(autoincrement()) @id
+
+    row String
+    column String
+    studio_id Int
+    studio studios @relation(fields: [studio_id], references: [id])
+    reservation_seats reservation_seats[]
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+model seat_types {
+    id Int @default(autoincrement()) @id
+    name String
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}

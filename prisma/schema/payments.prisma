@@ -1,0 +1,27 @@
+model payments {
+    id Int @id @default(autoincrement())
+
+    amount         Int
+    payment_method String
+    status         payment_status
+    reservation_id Int
+    reservation    reservations   @relation(fields: [reservation_id], references: [id])
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+enum payment_status {
+    PENDING
+    CAPTURE
+    SETTLEMENT
+    DENY
+    CANCEL
+    EXPIRE
+    FAILURE
+    REFUND
+    CHARGEBACK
+    PARTIAL_REFUND
+    PARTIAL_CHARGEBACK
+    AUTHORIZE
+}

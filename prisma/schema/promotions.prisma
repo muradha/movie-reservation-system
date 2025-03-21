@@ -1,0 +1,48 @@
+model promotions {
+    id Int @id @default(autoincrement())
+
+    name                 String
+    description          String                 @db.Text()
+    discount_type        discount_type
+    discount_value       Float
+    valid_from           DateTime
+    valid_until          DateTime
+    promotion_conditions promotion_conditions[]
+    promotion_usage      promotion_usage[]
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+model promotion_usage {
+    id Int @id @default(autoincrement())
+
+    used_at        DateTime     @db.Timestamp()
+    user_id        Int
+    users          users        @relation(fields: [user_id], references: [id])
+    reservation_id Int
+    reservations   reservations @relation(fields: [reservation_id], references: [id])
+    promotion_id   Int
+    promotions     promotions   @relation(fields: [promotion_id], references: [id])
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+model promotion_conditions {
+    id Int @id @default(autoincrement())
+
+    condition_type  condition_type
+    condition_value Int
+    promotion_id    Int
+    promtions       promotions     @relation(fields: [promotion_id], references: [id])
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+enum condition_type {
+    MOVIE
+    MIN_ORDERS
+    VALID_DAYS
+}

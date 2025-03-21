@@ -1,11 +1,22 @@
 model theaters {
     id Int @id @default(autoincrement())
 
-    name String
-    location_id Int
-    locations locations @relation(fields: [location_id], references: [id])
-    capacity Int
+    name             String
+    location_id      Int
+    locations        locations         @relation(fields: [location_id], references: [id])
+    capacity         Int
+    movies_schedules movie_schedules[]
+    theater_chain_id Int
+    theater_chains   theater_chains    @relation(fields: [theater_chain_id], references: [id])
+    studios          studios[]
 
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
+}
+
+model theater_chains {
+    id Int @id @default(autoincrement())
+
+    name     String
+    theaters theaters[]
 }

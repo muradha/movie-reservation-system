@@ -1,0 +1,26 @@
+model studios {
+    id Int @id @default(autoincrement())
+
+    name           String       @unique
+    base_price     Float        @db.Double
+    theater_id     Int
+    theaters       theaters     @relation(fields: [theater_id], references: [id])
+    studio_type_id Int
+    studio_types   studio_types @relation(fields: [studio_type_id], references: [id])
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+    seats      seats[]
+}
+
+model studio_types {
+    id Int @id @default(autoincrement())
+
+    name        String @unique
+    description String @db.Text
+
+    studios studios[]
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}

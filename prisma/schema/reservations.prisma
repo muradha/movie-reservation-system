@@ -1,0 +1,31 @@
+model reservations {
+    id Int @id @default(autoincrement())
+
+    reservation_date DateTime
+    total_price      Float    @default(0.0) @db.Double()
+
+    movie_schedule_id Int
+    movie_schedules   movie_schedules     @relation(fields: [movie_schedule_id], references: [id])
+    user_id           Int
+    users             users               @relation(fields: [user_id], references: [id])
+    voucher_id        Int
+    vouchers          vouchers            @relation(fields: [voucher_id], references: [id])
+    promotion_usage   promotion_usage[]
+    payments          payments[]
+    reservation_seats reservation_seats[]
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+model reservation_seats {
+    id Int @id @default(autoincrement())
+
+    reservation_id Int
+    reservations   reservations @relation(fields: [reservation_id], references: [id])
+    seat_id        Int
+    seats          seats        @relation(fields: [seat_id], references: [id])
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
