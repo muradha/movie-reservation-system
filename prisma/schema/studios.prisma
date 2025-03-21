@@ -17,7 +17,7 @@ model studio_types {
     id Int @id @default(autoincrement())
 
     name        String @unique
-    description String @db.Text
+    description String? @db.Text
 
     studios studios[]
 

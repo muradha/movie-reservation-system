@@ -2,13 +2,14 @@ model movies {
     id Int @id @default(autoincrement())
 
     title           String
-    description     String
+    description     String?           @db.Text()
     duration        Int
-    poster          String
+    poster          String?
     movie_status_id Int
     movie_status    movie_status      @relation(fields: [movie_status_id], references: [id])
     movie_schedules movie_schedules[]
     watch_history   watch_history?
+    watch_list      watch_list?
 
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt

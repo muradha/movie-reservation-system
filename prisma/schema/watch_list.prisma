@@ -1,0 +1,18 @@
+model watch_list {
+    id Int @id @default(autoincrement())
+
+    priority     Int
+    watch_status String
+    user_id      Int
+    users        users  @relation(fields: [user_id], references: [id])
+    movie_id     Int    @unique
+    movie        movies @relation(fields: [movie_id], references: [id])
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+enum watch_status {
+    planning
+    completed
+}

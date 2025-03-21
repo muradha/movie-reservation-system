@@ -2,7 +2,7 @@ model vouchers {
     id Int @id @default(autoincrement())
 
     code           String
-    description    String         @db.Text()
+    description    String?         @db.Text()
     discount_type  discount_type
     discount_value Float
     valid_from     DateTime

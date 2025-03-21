@@ -8,6 +8,8 @@ model users {
     user_tokens     user_tokens[]
     reservations    reservations[]
     promotion_usage promotion_usage[]
+    watch_history   watch_history[]
+    watch_list      watch_list[]
 
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
