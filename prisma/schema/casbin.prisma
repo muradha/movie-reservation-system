@@ -1,4 +1,4 @@
-model casbin_rule {
+model CasbinRule {
     id    Int     @id @default(autoincrement())
     ptype String
     v0    String?
@@ -7,4 +7,6 @@ model casbin_rule {
     v3    String?
     v4    String?
     v5    String?
+
+    @@map("casbin_rule")
 }
