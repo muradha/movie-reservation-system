@@ -1,4 +1,5 @@
 import errorHandler from "#middlewares/errorHandler.js";
+import compression from "compression";
 import routes from "./routes/index.js";
 import express from "express";
 
@@ -7,6 +8,13 @@ const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(compression({
+  level: 9,
+  brotli: {
+    enabled: true,
+    zlib: {}
+  }
+}))
 
 app.use("/", routes);
 
