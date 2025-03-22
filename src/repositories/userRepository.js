@@ -63,6 +63,27 @@ class UserRepository {
     });
   }
 
+  async getUserRoleByEmail(email) {
+    const user = await prisma.users.findUnique({
+      where: {
+        email
+      },
+      include: {
+        role_user: {
+          include: {
+            roles: true
+          }
+        }
+      }
+    })
+    return {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role_user[0]?.roles?.name || "guest"
+    }
+  }
+
   async createUser(data) {
     return await prisma.users.create({ data });
   }

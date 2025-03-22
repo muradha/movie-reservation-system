@@ -1,8 +1,11 @@
 // src/middlewares/authMiddleware.js
 import jwt from "jsonwebtoken";
 import { sendError } from "../utils/response.js";
+import UserRepository from "#repositories/userRepository.js";
 
-const authenticateJWT = (req, res, next) => {
+const userRepository = new UserRepository();
+
+const authenticateJWT = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -15,7 +18,7 @@ const authenticateJWT = (req, res, next) => {
   }
 
   // Token diharapkan dalam format "Bearer <token>"
-  const parts = authHeader.split(" ");
+  const parts = authHeader?.split(" ") || [];
   if (parts.length !== 2 || parts[0] !== "Bearer") {
     sendError(
       res,
@@ -30,7 +33,10 @@ const authenticateJWT = (req, res, next) => {
   try {
     // Verifikasi token menggunakan secret (pastikan JWT_SECRET didefinisikan di environment variable)
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // Tempatkan payload token ke req.user
+
+    const user = await userRepository.getUserRoleByEmail(decoded.email);
+
+    req.user = user; // Tempatkan payload token ke req.user
     next();
   } catch (error) {
     sendError(res, "Token tidak valid atau sudah kadaluarsa.", error, 401);
