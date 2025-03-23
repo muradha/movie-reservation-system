@@ -10,7 +10,8 @@
     "compression": "^1.8.0",
     "express": "^4.21.2",
     "joi": "^17.13.3",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "prisma-extension-pagination": "^0.7.5"
   },
   "devDependencies": {
     "prisma": "^6.4.1"
@@ -31,7 +32,8 @@
     "#services/*": "./src/services/*",
     "#validators/*": "./src/validators/*",
     "#middlewares/*": "./src/middlewares/*",
-    "#pipes/*": "./src/pipes/*"
+    "#pipes/*": "./src/pipes/*",
+    "#lib/*": "./src/lib/*"
   },
   "type": "module",
   "keywords": [],

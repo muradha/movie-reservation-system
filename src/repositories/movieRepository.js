@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "#lib/prisma.js";
 
 class MovieRepository {
   async getAllMovies() {
@@ -13,6 +11,18 @@ class MovieRepository {
         id,
       },
     });
+  }
+
+  async getMoviesByStatus(status) {
+    return await prisma.movies.findMany({
+      where: {
+        movie_status: {
+          is: {
+            name: status
+          }
+        }
+      }
+    })
   }
 
   async getMovieBytitle(title) {

@@ -8,6 +8,10 @@ class MovieService {
         return await movieRepository.getAllMovies();
     }
 
+    async fetchMoviesByStatus(status) {
+        return await movieRepository.getMoviesByStatus(status);
+    }
+
     async createMovie(data) {
         const { title } = data
 

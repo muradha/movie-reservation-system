@@ -1,39 +1,16 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "#lib/prisma.js";
 
 class UserRepository {
-  /**
-   * Mengambil daftar user dengan pagination dan metadata.
-   * @param {number} page - Halaman saat ini.
-   * @param {number} perPage - Jumlah data per halaman.
-   * @param {object} filter - (Opsional) kondisi filter.
-   * @returns {Promise<{data: Array, meta: object}>}
-   */
-  async getPaginatedUsers(page = 1, perPage = 1, filter = {}) {
-    const skip = (page - 1) * perPage;
+  async getPaginatedUsers(page = 1, perPage = 10, filter = {}) {
 
-    // Ambil data dan total count secara paralel
-    const [data, totalCount] = await Promise.all([
-      prisma.users.findMany({
-        where: filter,
-        skip,
-        take: perPage,
-        select: { id: true, email: true, name: true }, // ambil field yang diperlukan
-      }),
-      prisma.users.count({ where: filter }),
-    ]);
-
-    const totalPages = Math.ceil(totalCount / perPage);
-
+    const [users, meta] = await prisma.users.paginate().withPages({
+      limit: perPage,
+      page,
+    });
+    
     return {
-      meta: {
-        totalCount,
-        totalPages,
-        currentPage: page,
-        perPage,
-      },
-      data,
+      data: users,
+      meta,
     };
   }
   async countUsers() {
