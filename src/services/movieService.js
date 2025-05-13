@@ -8,8 +8,17 @@ class MovieService {
         return await movieRepository.getAllMovies();
     }
 
-    async fetchMoviesByStatus(status) {
-        return await movieRepository.getMoviesByStatus(status);
+    async fetchMoviesByStatus(status, page, perPage) {
+        const statusMap = {
+            "on-showing": "On Showing"
+        }
+        
+        const [movies, meta] = await movieRepository.getMoviesByStatus(statusMap[status], page, perPage);
+        
+        return {
+            data: movies,
+            meta: meta
+        }
     }
 
     async createMovie(data) {

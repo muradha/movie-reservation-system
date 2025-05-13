@@ -7,7 +7,20 @@ const getAllMovies = async (req, res, next) => {
     try {
         const movies = await movieService.fetchAllMovies();
 
-        sendSuccess(res, movies, "Movies fetched", 200)
+        return sendSuccess(res, movies, "Movies fetched", 200)
+    } catch (error) {
+        next(error);
+    }
+}
+
+const getMoviesByStatus = async (req, res, next) => {
+    try {
+        const { page, perPage } = req.query;
+        const { status } = req.params;
+
+        const { data, meta } = await movieService.fetchMoviesByStatus(status, parseInt(page), parseInt(perPage));
+
+        return sendSuccess(res, data, "Movies fetched", 200, meta)
     } catch (error) {
         next(error);
     }
@@ -17,7 +30,7 @@ const createMovie = async (req, res, next) => {
     try {
         const movie = await movieService.createMovie(req.body);
 
-        sendSuccess(res, movie, "Movie created", 201);
+        return sendSuccess(res, movie, "Movie created", 201);
     } catch (error) {
         next(error);
     }
@@ -29,7 +42,7 @@ const updateMovie = async (req, res, next) => {
 
         const movie = await movieService.updateMovie(movieId, req.body);
 
-        sendSuccess(res, movie, "Movie updated", 200);
+        return sendSuccess(res, movie, "Movie updated", 200);
     } catch (error) {
         next(error);
     }
@@ -41,10 +54,10 @@ const deleteMovie = async (req, res, next) => {
 
         const movie = await movieService.deleteMovie(movieId);
 
-        sendSuccess(res, movie, "Movie deleted", 200);
+        return sendSuccess(res, movie, "Movie deleted", 200);
     } catch (error) {
         next(error);
     }
 }
 
-export { getAllMovies, createMovie, updateMovie, deleteMovie };
+export { getAllMovies, createMovie, updateMovie, deleteMovie, getMoviesByStatus };

@@ -9,8 +9,7 @@ import authenticateJWT from "#middlewares/authMiddleware.js";
 const router = express.Router();
 
 // Mount the user routes under a path, e.g. /users
-router.use(authenticateJWT);
-router.use("/users", routeUsers);
+router.use("/users", authenticateJWT, routeUsers);
 router.use("/auth", routeAuth);
 router.use("/movies", routeMovie);
 router.use("/theaters", routeTheater);

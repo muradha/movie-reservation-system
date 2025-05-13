@@ -12,7 +12,7 @@ const authorize = (resource, action) => {
             const enforcer = await newEnforcer(path.resolve("./model.conf"), adapter);
 
             if (!enforcer || !req.user) {
-                return res.status(500).json({ message: 'Enforcer belum siap atau user tidak ditemukan' });
+                return sendError(res, 'Enforcer belum siap atau user tidak ditemukan', null, 500);
             }
             const allowed = await enforcer.enforce(req.user.role, resource, action);
             if (allowed) {

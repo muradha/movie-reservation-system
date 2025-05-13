@@ -9,7 +9,7 @@ const authenticateJWT = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    sendError(
+    return sendError(
       res,
       "Token tidak ditemukan. Harap sertakan token dalam header Authorization.",
       null,
@@ -20,7 +20,7 @@ const authenticateJWT = async (req, res, next) => {
   // Token diharapkan dalam format "Bearer <token>"
   const parts = authHeader?.split(" ") || [];
   if (parts.length !== 2 || parts[0] !== "Bearer") {
-    sendError(
+    return sendError(
       res,
       'Format token tidak valid. Harus "Bearer <token>".',
       null,
@@ -39,7 +39,7 @@ const authenticateJWT = async (req, res, next) => {
     req.user = user; // Tempatkan payload token ke req.user
     next();
   } catch (error) {
-    sendError(res, "Token tidak valid atau sudah kadaluarsa.", error, 401);
+    return sendError(res, "Token tidak valid atau sudah kadaluarsa.", error, 401);
   }
 };
 

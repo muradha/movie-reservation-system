@@ -8,15 +8,16 @@ model studios {
     studio_type_id Int
     studio_types   studio_types @relation(fields: [studio_type_id], references: [id])
 
-    created_at DateTime @default(now())
-    updated_at DateTime @updatedAt
-    seats      seats[]
+    created_at       DateTime           @default(now())
+    updated_at       DateTime           @updatedAt
+    seats            seats[]
+    studio_schedules studio_schedules[]
 }
 
 model studio_types {
     id Int @id @default(autoincrement())
 
-    name        String @unique
+    name        String  @unique
     description String? @db.Text
 
     studios studios[]

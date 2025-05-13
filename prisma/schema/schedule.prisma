@@ -1,0 +1,12 @@
+model studio_schedules {
+    id Int @id @default(autoincrement())
+
+    show_time DateTime @db.Time()
+    sequence  Int
+
+    studio_id       Int
+    studios         studios           @relation(fields: [studio_id], references: [id])
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}

@@ -1,15 +1,16 @@
 model movies {
     id Int @id @default(autoincrement())
 
-    title           String
-    description     String?           @db.Text()
-    duration        Int
-    poster          String?
-    movie_status_id Int
-    movie_status    movie_status      @relation(fields: [movie_status_id], references: [id])
-    movie_schedules movie_schedules[]
-    watch_history   watch_history?
-    watch_list      watch_list?
+    title              String
+    description        String?              @db.Text()
+    duration           Int
+    poster             String?
+    release_date       DateTime?            @db.Date()
+    end_date           DateTime?            @db.Date()
+    movie_schedules    movie_schedules[]
+    watch_history      watch_history?
+    watch_list         watch_list?
+    movie_availability movie_availability[]
 
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
@@ -18,14 +19,27 @@ model movies {
 model movie_schedules {
     id Int @id @default(autoincrement())
 
-    show_date DateTime @db.Date()
-    show_time DateTime @db.Time()
+    movie_id           Int
+    movies             movies           @relation(fields: [movie_id], references: [id])
+    theater_id         Int
+    theaters           theaters         @relation(fields: [theater_id], references: [id])
+    reservations       reservations[]
 
-    movie_id     Int
-    movies       movies         @relation(fields: [movie_id], references: [id])
-    theater_id   Int
-    theaters     theaters       @relation(fields: [theater_id], references: [id])
-    reservations reservations[]
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+model movie_availability {
+    id Int @id @default(autoincrement())
+
+    movie_id Int
+    movies   movies @relation(fields: [movie_id], references: [id])
+
+    theater_id Int
+    theaters   theaters @relation(fields: [theater_id], references: [id])
+
+    movie_status_id Int
+    movie_status    movie_status @relation(fields: [movie_status_id], references: [id])
 
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
@@ -36,5 +50,5 @@ model movie_status {
 
     name String
 
-    movies movies[]
+    movie_availability movie_availability[]
 }

@@ -2,7 +2,7 @@ import prisma from "#lib/prisma.js";
 
 class MovieRepository {
   async getAllMovies() {
-    return await prisma.movies.findMany();
+    return await prisma.movies.paginate().withPages({});
   }
 
   async getMovieById(id) {
@@ -13,8 +13,8 @@ class MovieRepository {
     });
   }
 
-  async getMoviesByStatus(status) {
-    return await prisma.movies.findMany({
+  async getMoviesByStatus(status, page = 1, perPage = 10) {
+   return await prisma.movies.paginate({
       where: {
         movie_status: {
           is: {
@@ -22,6 +22,15 @@ class MovieRepository {
           }
         }
       }
+    }).withPages({
+      limit: perPage,
+      page,
+    });
+  }
+
+  async getMoviesByLocations(){
+    return await prisma.movies.findMany({
+      
     })
   }
 
