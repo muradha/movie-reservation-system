@@ -4,8 +4,13 @@ import HttpError from "../errors/HttpError.js";
 const movieRepository = new MovieRepository;
 
 class MovieService {
-    async fetchAllMovies() {
-        return await movieRepository.getAllMovies();
+    async fetchAllMovies(page, perPage) {
+        const [movies, meta] = await movieRepository.getAllMovies(page, perPage);
+
+        return {
+            data: movies,
+            meta: meta
+        }
     }
 
     async fetchMoviesByStatus(status, page, perPage) {

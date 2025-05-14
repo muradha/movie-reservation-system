@@ -1,8 +1,11 @@
 import prisma from "#lib/prisma.js";
 
 class MovieRepository {
-  async getAllMovies() {
-    return await prisma.movies.paginate().withPages({});
+  async getAllMovies(page = 1, perPage = 10) {
+    return await prisma.movies.paginate().withPages({
+      limit: perPage,
+      page,
+    });
   }
 
   async getMovieById(id) {

@@ -23,6 +23,8 @@ model movie_schedules {
     movies             movies           @relation(fields: [movie_id], references: [id])
     theater_id         Int
     theaters           theaters         @relation(fields: [theater_id], references: [id])
+    studio_schedule_id Int
+    studio_schedules   studio_schedules @relation(fields: [studio_schedule_id], references: [id])
     reservations       reservations[]
 
     created_at DateTime @default(now())

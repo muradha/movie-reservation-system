@@ -3,9 +3,11 @@ model studio_schedules {
 
     show_time DateTime @db.Time()
     sequence  Int
+    show_date DateTime @db.Date() // Tambahkan kolom tanggal
 
     studio_id       Int
     studios         studios           @relation(fields: [studio_id], references: [id])
+    movie_schedules movie_schedules[] // Tambahkan relasi dengan movie_schedules
 
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
